@@ -1,9 +1,11 @@
 import React from 'react';
 
-export default function TestComponent({ headline }) {
+function App() {
   return (
     <div>
-      <h1>{headline}</h1>
+      <h1>Headline</h1>
     </div>
   );
 }
+
+export default App;
