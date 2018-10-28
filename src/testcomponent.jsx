@@ -1,6 +1,6 @@
 import React from 'react';
 
-function App() {
+function TestComponent() {
   return (
     <div>
       <h1>Headline</h1>
@@ -8,4 +8,4 @@ function App() {
   );
 }
 
-export default App;
+export default TestComponent;

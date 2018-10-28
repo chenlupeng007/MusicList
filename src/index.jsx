@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './testcomponent';
+import TestComponent from './testcomponent';
 
 render(
-  <App />,
+  <TestComponent />,
   document.getElementById('react-app'),
 );
