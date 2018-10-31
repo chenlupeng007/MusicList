@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Sidebar from '../shared/Sidebar';
 
 export default function ProfilePage(props) {
@@ -7,7 +6,7 @@ export default function ProfilePage(props) {
   return (
     <section className="page-content">
       <div className="row">
-        <div className="col-sm-12 col-lg-8">
+        <div className="col-sm-12 col-md-8">
           This is the profile page. The profile id is: {match.params.id}.
         </div>
         <Sidebar />
