@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-import TestComponent from './testcomponent';
+import Template from './components/Template';
 
 render(
-  <TestComponent />,
+  <Template />,
   document.getElementById('react-app'),
 );

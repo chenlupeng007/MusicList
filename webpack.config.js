@@ -2,29 +2,30 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
+  mode: 'development',
   entry: {
-    'build.js': './src/index.jsx',
+    'build.js': [
+      'webpack-hot-middleware/client',
+      './src/index.jsx'],
   },
   output: {
     filename: '[name]',
     path: path.join(__dirname, 'public', 'javascripts'),
-  },
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
-  devServer: {
     publicPath: '/javascripts/',
-    hot: true,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
   ],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        include: [path.resolve(__dirname, 'src')],
+        exclude: /(node_modules|public\/)/,
         loader: 'babel-loader',
       },
     ],
