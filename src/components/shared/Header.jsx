@@ -23,7 +23,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <header className="wrapper">
-        <Navbar color="faded" light expand="md">
+        <Navbar color="light" light expand="md">
           <NavbarBrand tag={Link} to="/">MusicList</NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar}/>
           <Collapse isOpen={this.state.isOpen} navbar>

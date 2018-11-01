@@ -2,18 +2,30 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const Mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
+
+const cssOutputLocation = process.env.NODE_ENV === 'production' ?
+  'public/stylesheets/style-prod.css' :
+  'stylesheets/style.css';
+
+const jsProdOutput = {
+  filename: 'public/javascripts/build-prod.js',
+  path: path.resolve(__dirname),
+  publicPath: '/',
+};
+
+const jsDevOutput = {
+  filename: 'javascripts/build.js',
+  path: '/',
+  publicPath: '/',
+};
+
+const jsOutputLocation = process.env.NODE_ENV === 'production' ? jsProdOutput : jsDevOutput;
+
 module.exports = {
-  mode: 'development',
-  entry: {
-    'build.js': [
-      'webpack-hot-middleware/client',
-      './src/index.jsx'],
-  },
-  output: {
-    filename: '[name]',
-    path: path.join(__dirname, 'public', 'javascripts'),
-    publicPath: '/',
-  },
+  mode: Mode,
+  entry: ['./src/index.jsx'],
+  output: jsOutputLocation,
   resolve: {
     extensions: ['.js', '.jsx'],
   },
@@ -52,9 +64,15 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'stylesheets/style.css',
+      filename: cssOutputLocation,
     }),
   ],
 };
+
+if (process.env.NODE_ENV !== 'production') {
+  module.exports.entry.unshift(
+    'webpack-hot-middleware/client',
+  );
+  module.exports.plugins.push(new webpack.HotModuleReplacementPlugin());
+}

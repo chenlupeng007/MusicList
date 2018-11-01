@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "lint": "./node_modules/.bin/eslint .",
-    "build-dev": "webpack --mode=development --config webpack.config.js --progress --profile --colors"
+    "build-prod": "NODE_ENV=production webpack -p --config webpack.config.js",
+    "start-prod": "NODE_ENV=production node ./bin/www"
   },
   "dependencies": {
     "bootstrap": "^4.1.3",
@@ -13,12 +14,19 @@
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
     "express": "~4.16.0",
+    "express-session": "^1.15.6",
     "http-errors": "~1.6.2",
+    "mongoose": "^5.3.8",
     "morgan": "~1.9.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^5.0.1",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
+    "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",
-    "reactstrap": "^6.5.0"
+    "reactstrap": "^6.5.0",
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
