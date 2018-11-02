@@ -7,7 +7,6 @@ import Store from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/musiclist.scss';
 
-
 render(
   <Provider store={Store}>
     <TemplateContainer />

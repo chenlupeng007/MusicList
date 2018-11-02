@@ -1,11 +1,12 @@
-import { combineReducers, createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 
-import ProgressReducer from '../reducers/progress';
+import combinedReducers from '../reducers';
 
-const combinedReducers = combineReducers({
-  progress: ProgressReducer,
-});
+const Store = createStore(combinedReducers, applyMiddleware(thunkMiddleware));
 
-const Store = createStore(combinedReducers);
+if (module.hot) {
+  module.hot.accept('../reducers', () => Store.replaceReducer(combinedReducers));
+}
 
 export default Store;
