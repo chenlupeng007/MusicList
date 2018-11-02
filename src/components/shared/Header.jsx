@@ -4,7 +4,17 @@ import {
   Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink,
 } from 'reactstrap';
 
-const renderLogin = () => <NavLink tag={Link} to="/account/login">Log In</NavLink>;
+const renderLogin = () => (
+  <Nav className="ml-auto" navbar>
+    <NavItem>
+      <NavLink tag={Link} to="/account/login">Log In</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink tag={Link} to="/account/register">Register</NavLink>
+    </NavItem>
+  </Nav>
+);
+
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -32,9 +42,11 @@ export default class Header extends React.Component {
 
   renderGreeting(name) {
     return (
-      <span>
-        Welcome, {name} | <a href="/logout" onClick={this.logOutClick}>Log Out</a>
-      </span>
+      <Nav className="ml-auto" navbar>
+        <NavItem>
+          Welcome, {name} | <a href="/logout" onClick={this.logOutClick}>Log Out</a>
+        </NavItem>
+      </Nav>
     );
   }
 
@@ -46,11 +58,7 @@ export default class Header extends React.Component {
           <NavbarBrand tag={Link} to="/">MusicList</NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar}/>
           <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                { isLoggedIn ? this.renderGreeting(firstName) : renderLogin() }
-              </NavItem>
-            </Nav>
+            { isLoggedIn ? this.renderGreeting(firstName) : renderLogin() }
           </Collapse>
         </Navbar>
       </header>
