@@ -28,15 +28,33 @@ router.get('/logout', (req, res) => {
   return res.send(JSON.stringify(req.user));
 });
 
+// POST to /login
+router.post('/login', async (req, res) => {
+  // look up the user by their email
+  const query = User.findOne({ email: req.body.email });
+  const foundUser = await query.exec();
+
+  // if they exist, they'll have a username, so add that to our body
+  if (foundUser) { req.body.username = foundUser.username; }
+
+  passport.authenticate('local')(req, res, () => {
+    // If logged in, we should have user info to send back
+    if (req.user) {
+      return res.send(JSON.stringify(req.user));
+    }
+
+    // Otherwise return an error
+    return res.send(JSON.stringify({ error: 'There was an error logging in' }));
+  });
+});
+
 // POST to /register
 router.post('/register', async (req, res) => {
   // First, check and make sure the email doesn't already exist
   const query = User.findOne({ email: req.body.email });
   const foundUser = await query.exec();
-  if (foundUser) {
-    return res.send(JSON.stringify({ error: 'Email or username already exists' }));
-  }
 
+  if (foundUser) { return res.send(JSON.stringify({ error: 'Email or username already exists' })); }
   if (!foundUser) {
     // Create a user object to save, using values from incoming JSON
     const newUser = new User(req.body);
@@ -63,23 +81,40 @@ router.post('/register', async (req, res) => {
   return res.send(JSON.stringify({ error: 'There was an error registering the user' }));
 });
 
-// POST to /login
-router.post('/login', async (req, res) => {
-  // look up the user by their email
-  const query = User.findOne({ email: req.body.email });
-  const foundUser = await query.exec();
+// POST to savepassword
+router.post('/savepassword', async (req, res) => {
+  let result;
+  try {
+    // look up user in the DB based on reset hash
+    const query = User.findOne({ passwordReset: req.body.hash });
+    const foundUser = await query.exec();
 
-  // if they exist, they'll have a username, so add that to our body
-  if (foundUser) { req.body.username = foundUser.username; }
-  passport.authenticate('local')(req, res, () => {
-    // If logged in, we should have user info to send back
-    if (req.user) {
-      return res.send(JSON.stringify(req.user));
+    // If the user exists save their new password
+    if (foundUser) {
+      // user passport's built-in password set method
+      foundUser.setPassword(req.body.password, (err) => {
+        if (err) {
+          result = res.send(JSON.stringify({ error: 'Password could not be saved. Please try again' }));
+        } else {
+          // once the password's set, save the user object
+          foundUser.save((error) => {
+            if (error) {
+              result = res.send(JSON.stringify({ error: 'Password could not be saved. Please try again' }));
+            } else {
+              // Send a success message
+              result = res.send(JSON.stringify({ success: true }));
+            }
+          });
+        }
+      });
+    } else {
+      result = res.send(JSON.stringify({ error: 'Reset hash not found in database.' }));
     }
-
-    // Otherwise return an error
-    return res.send(JSON.stringify({ error: 'There was an error logging in' }));
-  });
+  } catch (err) {
+    // if the hash didn't bring up a user, error out
+    result = res.send(JSON.stringify({ error: 'There was an error connecting to the database.' }));
+  }
+  return result;
 });
 
 // POST to saveresethash
@@ -124,7 +159,6 @@ router.post('/saveresethash', async (req, res) => {
     // if the user doesn't exist, error out
     result = res.send(JSON.stringify({ error: 'Something went wrong while attempting to reset your password. Please Try again' }));
   }
-
   return result;
 });
 
