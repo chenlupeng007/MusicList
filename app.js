@@ -1,10 +1,11 @@
+const appConfig = require('./config.js');
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session')({
-  secret: 'any random string can go here',
+  secret: appConfig.expressSession.secret,
   resave: false,
   saveUninitialized: false,
 });
