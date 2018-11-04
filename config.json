@@ -1,0 +1,16 @@
+{
+  "crypto": {
+    "secret": "sda46ufgh239d7fjhwi0sejhrgw4ersjdf8u7eweoi42hg0siojg"
+  },
+  "discogs": {
+    "key": "bJWQrlbGAWEkjnXmznWN",
+    "secret": "DNLvRJSzyqWUjCLqAdsPuXotguyPrGTU"
+  },
+  "expressSession" : {
+    "secret": "bmoe5r8hb98fhsbso93ikdfgbs0u4sfg89dhsogsd09fy4pf9fdh"
+  },
+  "mailgun": {
+    "apiKey": "key-8dae0b044ad8ac34fdaf0d43333a71b7",
+    "domain": "sandbox83bc63222fac47bca84d69dc60a4c107.mailgun.org"
+  }
+}
