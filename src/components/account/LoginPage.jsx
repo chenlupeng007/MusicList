@@ -11,7 +11,6 @@ export default class LoginPage extends React.Component {
     // bound functions
     this.handleValidSubmit = this.handleValidSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
 
     // component state
@@ -24,13 +23,6 @@ export default class LoginPage extends React.Component {
   // update state as email value changes
   handleEmailChange(e) {
     this.setState({ email: e.target.value });
-  }
-
-  // catch enter clicks
-  handleKeyPress(target) {
-    if (target.charCode === 13) {
-      this.handleValidSubmit();
-    }
   }
 
   // update state as password value changes
@@ -55,7 +47,6 @@ export default class LoginPage extends React.Component {
                 id="userEmail"
                 name="email"
                 onChange={this.handleEmailChange}
-                onKeyPress={this.handleKeyPress}
                 placeholder="noreply@musiclist.com"
                 required
                 type="email"
@@ -69,7 +60,6 @@ export default class LoginPage extends React.Component {
                 id="userPassword"
                 name="password"
                 onChange={this.handlePasswordChange}
-                onKeyPress={this.handleKeyPress}
                 placeholder="password"
                 required
                 type="password"

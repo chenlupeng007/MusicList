@@ -21,7 +21,10 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('./webpack.config');
 
 const indexRouter = require('./routes/index');
+const albums = require('./routes/api/albums');
+const artists = require('./routes/api/artists');
 const authentication = require('./routes/api/authentication');
+const users = require('./routes/api/users');
 
 const app = express();
 
@@ -55,7 +58,10 @@ if (process.env.NODE_ENV !== 'production') {
   }));
 }
 
+app.use('/api/albums', albums);
+app.use('/api/artists', artists);
 app.use('/api/authentication', authentication);
+app.use('/api/users', users);
 app.use('/*', indexRouter);
 
 // Configure Passport
@@ -64,7 +70,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Connect Mongoose
-mongoose.connect('mongodb://localhost/musiclist', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/musiclist', { useNewUrlParser: true, useCreateIndex: true });
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => next(createError(404)));

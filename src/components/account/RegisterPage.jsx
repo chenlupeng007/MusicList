@@ -9,7 +9,6 @@ export default class ProfilePage extends React.Component {
     // bound functions
     this.handleValidSubmit = this.handleValidSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
 
     // component state
     this.state = {
@@ -33,14 +32,6 @@ export default class ProfilePage extends React.Component {
     this.setState({ [e.currentTarget.id]: e.target.value });
   }
 
-  // catch enter clicks
-  handleKeyPress(target) {
-    if (target.charCode === 13) {
-      target.preventDefault();
-      this.handleValidSubmit();
-    }
-  }
-
   render() {
     return (
       <div className="row justify-content-center">
@@ -56,7 +47,6 @@ export default class ProfilePage extends React.Component {
                 id="email"
                 name="email"
                 onChange={this.handleInputChange}
-                onKeyPress={this.handleKeyPress}
                 placeholder="noreply@musiclist.com"
                 required
                 type="email"
@@ -72,7 +62,6 @@ export default class ProfilePage extends React.Component {
                 minLength="8"
                 name="password"
                 onChange={this.handleInputChange}
-                onKeyPress={this.handleKeyPress}
                 placeholder="password"
                 required
                 type="password"
@@ -92,7 +81,6 @@ export default class ProfilePage extends React.Component {
                 id="username"
                 name="username"
                 onChange={this.handleInputChange}
-                onKeyPress={this.handleKeyPress}
                 placeholder="CaptainCode"
                 required
                 type="text"
@@ -107,7 +95,6 @@ export default class ProfilePage extends React.Component {
                 id="firstName"
                 name="firstName"
                 onChange={this.handleInputChange}
-                onKeyPress={this.handleKeyPress}
                 placeholder="Jamie"
                 required
                 type="text"
@@ -122,7 +109,6 @@ export default class ProfilePage extends React.Component {
                 id="lastName"
                 name="lastName"
                 onChange={this.handleInputChange}
-                onKeyPress={this.handleKeyPress}
                 placeholder="Smith"
                 required
                 type="text"
