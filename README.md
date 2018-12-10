@@ -3,13 +3,13 @@ A website for tracking music and albume, which is created following the [online 
 It created a Node.js-based API and talk to it with a React.js-based front-end.
 
 ## Dependencies
-- Webpack 4+
-- Babel 7+
+- Webpack 4
+- Babel 7
 - MiniCssExtractPlugin
-- React Hot Loader 4+
-- React 16+
-- React-Router 4+
-- Express 4+
+- React Hot Loader 4
+- React 16
+- React-Router 4
+- Express 4
 - Mongodb
 
 **Please Note:** If you want to run the app locally after cloning, you have to use your own  `config.json` file.
